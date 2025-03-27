@@ -109,15 +109,15 @@ def account(clients, accounts): # Função para criar uma conta
 def list_accounts(clients, accounts): # Função para listar as contas criadas
   print("\n --- Lista de Contas ---")
   while True:  
-    print("\n Digite [s] para sair.\n")
+    print("\n Digite [sair] para voltar ao menu anterior.\n")
     if not accounts:
       print("Nenhuma conta cadastrada.")
       break
     cpf = input("Digite o CPF do cliente: ").strip()
-    client_data = next((c for c in clients if c["cpf"] == cpf), None)
-    if "s" in cpf:
+    if cpf == "sair":  # Simplificado para verificar igualdade exata
       break  
-    elif not client_data: 
+    client_data = next((c for c in clients if c["cpf"] == cpf), None)
+    if not client_data: 
       print("CPF não encontrado! Digite um CPF válido.")
       continue
     else:
@@ -222,7 +222,7 @@ def  extract(balance, withdrawals, depositis ): # Função para exibir o extrato
   print(f"Saldo atual: R${balance:.2f}")
   print("\n --- Fim do Extrato ---\n")
   
-def bank_simulator(): # Função que ira permitit ao usuário realizar operações bancárias
+def bank_simulator(): # Função que irá permitir ao usuário realizar operações bancárias
   balance = 0
   withdrawals = []
   depositis = []
@@ -230,27 +230,27 @@ def bank_simulator(): # Função que ira permitit ao usuário realizar operaçõ
   accounts = []
 
   while True:
-    menu() # Chamando a funcão menu para exibir as opções
-    option = input("Digíte uma opção: ").lower()
+    menu() # Chamando a função menu para exibir as opções
+    option = input("Digite uma opção: ").lower()
     if option not in ["nc", "cc", "lu", "lc", "d", "s", "e", "sair"]:
-      print("\n Opção inválida! Digíte uma das opções acima.\n")
+      print("\n Opção inválida! Digite uma das opções acima.\n")
       continue
     
-    if "nc" in option:
+    if option == "nc":  # Alterado para verificar igualdade exata
       client(clients)
-    elif "cc" in option:
+    elif option == "cc":
       account(clients, accounts)
-    elif "lu" in option:
+    elif option == "lu":
       list_clients(clients)
-    elif "lc" in option:
+    elif option == "lc":
       list_accounts(clients, accounts)
-    elif "d" in option:
+    elif option == "d":
       balance = deposit(balance, depositis)
-    elif "s" in option:
-      balance = withdraw(balance = balance, withdrawals = withdrawals)
-    elif "e" in option:
+    elif option == "s":
+      balance = withdraw(balance=balance, withdrawals=withdrawals)
+    elif option == "e":
       extract(balance, withdrawals, depositis)   
-    elif "sair" in option:
+    elif option == "sair":
       print("Obrigado por utilizar nosso Banco!")
       break
     
